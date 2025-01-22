@@ -1,0 +1,15 @@
+from pydantic_ai import Agent
+from pydantic_ai.models.gemini import GeminiModel
+
+model = GeminiModel('gemini-1.5-flash', api_key='AIzaSyBlljT0lQl6eZv_FdLiz0nBo1AN1kT3KEw')
+
+agent = Agent(  
+    model,
+    system_prompt='Be concise, reply with one sentence.',  
+)
+
+result = agent.run_sync('Where does "hello world" come from?')  
+print(result.data)
+"""
+The first known use of "hello, world" was in a 1974 textbook about the C programming language.
+"""
