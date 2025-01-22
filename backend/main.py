@@ -1,7 +1,7 @@
 from pydantic_ai import Agent
 from pydantic_ai.models.gemini import GeminiModel
 
-model = GeminiModel('gemini-1.5-flash', api_key='AIzaSyBlljT0lQl6eZv_FdLiz0nBo1AN1kT3KEw')
+model = GeminiModel('gemini-1.5-flash', api_key=API_KEY)
 
 agent = Agent(  
     model,
