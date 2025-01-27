@@ -123,7 +123,7 @@ class UserInput(BaseModel):
     user_input: str
 
 origins = [
-    "http://localhost:5173"
+    "http://localhost:3000"
 ]
 
 app.add_middleware(
@@ -140,7 +140,16 @@ async def use_agent(user_query: UserInput):
     if response:
         return {"Response": response}
     else:
-        return {"Error": "Check Code"}
+        return {"Error": "Check intent and action agent."}
+
+@app.get('/')
+async def get_data():
+    db_conn = DatabaseConn()
+    response = await db_conn.list_all_titles()
+    if response:
+        return {"response": response}
+    else:
+        return {"Error": "Check DB connection."}
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000)

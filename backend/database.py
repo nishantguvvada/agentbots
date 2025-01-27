@@ -111,6 +111,6 @@ class DatabaseConn:
         conn = await self._connect()
         try:
             results = await conn.fetch(query)
-            return [row["title"] for row in results]
+            return [{"title": row["title"], "id":i} for i, row in enumerate(results)]
         finally:
             await conn.close()
