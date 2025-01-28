@@ -1,7 +1,14 @@
+import os
+from dotenv import load_dotenv
 from pydantic_ai import Agent
 from pydantic_ai.models.gemini import GeminiModel
+import logfire
+# logfire.configure()
+logfire.configure(send_to_logfire='if-token-present')
 
-model = GeminiModel('gemini-1.5-flash', api_key='AIzaSyBlljT0lQl6eZv_FdLiz0nBo1AN1kT3KEw')
+load_dotenv()
+
+model = GeminiModel('gemini-1.5-flash', api_key=os.getenv('GEMINI_KEY'))
 
 agent = Agent(  
     model,

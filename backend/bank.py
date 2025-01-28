@@ -3,6 +3,10 @@ from dataclasses import dataclass
 from pydantic import BaseModel, Field
 from pydantic_ai import Agent, RunContext
 from pydantic_ai.models.gemini import GeminiModel
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 import logfire
 # logfire.configure()
@@ -40,7 +44,7 @@ class SupportResult(BaseModel):
     block_card: bool = Field(description="Whether to block the customer's card")
     risk: int = Field(description='Risk level of query', ge=0, le=10)
 
-model = GeminiModel('gemini-1.5-flash', api_key='AIzaSyBlljT0lQl6eZv_FdLiz0nBo1AN1kT3KEw')
+model = GeminiModel('gemini-1.5-flash', api_key=os.getenv('GEMINI_KEY'))
 
 support_agent = Agent(  
     model,  

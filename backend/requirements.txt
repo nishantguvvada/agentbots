@@ -1,3 +1,8 @@
 pydantic-ai
 pydantic-ai[logfire]
 uvicorn
+psycopg2
+asyncpg
+fastapi
+uvicorn
+dotenv
