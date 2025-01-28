@@ -5,3 +5,4 @@ psycopg2
 asyncpg
 fastapi
 uvicorn
+dotenv
