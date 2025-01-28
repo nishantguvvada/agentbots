@@ -130,7 +130,7 @@ class UserInput(BaseModel):
     user_input: str
 
 origins = [
-    "http://localhost:3000"
+    "https://agentbots.vercel.app"
 ]
 
 app.add_middleware(
