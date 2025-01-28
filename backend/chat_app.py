@@ -7,6 +7,7 @@ from typing import Optional, List
 from database import DatabaseConn
 from pydantic_ai.models.gemini import GeminiModel
 from pydantic_ai.models.groq import GroqModel
+from pydantic_ai.models.anthropic import AnthropicModel
 from pydantic_ai.models.mistral import MistralModel
 import uvicorn
 from fastapi import FastAPI
@@ -24,14 +25,20 @@ class NoteIntent:
 class NoteDependencies:
     db: DatabaseConn
 
+class Titles(BaseModel):
+    title: Optional[str] = None
+    id: int
+
 class NoteResponse(BaseModel):
     message: str
     note: Optional[dict] = None
-    titles: Optional[List[str]] = None
+    titles: Optional[List[Titles]] = None
 
 # 1. Agent for parsing the user's intent
 
-intent_model = GeminiModel('gemini-1.5-pro', api_key=os.getenv('GEMINI_KEY'))
+# intent_model = GeminiModel('gemini-1.5-pro', api_key=os.getenv('GEMINI_KEY'))
+# intent_model = AnthropicModel('claude-3-5-sonnet-latest', api_key=os.getenv('CLAUDE_KEY'))
+intent_model = GroqModel('llama-3.3-70b-versatile', api_key=os.getenv('GROQ_KEY'))
 
 intent_agent = Agent(
     intent_model,

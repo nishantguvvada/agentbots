@@ -17,6 +17,7 @@ export const Header = () => {
         try {
             if (userQuery == "") {
                 setIsLoading(false);
+                toast.error("No input provided.")
                 return
             }
 
