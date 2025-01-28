@@ -4,6 +4,8 @@ import { useState } from "react";
 import toast from 'react-hot-toast';
 import axios from "axios";
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
+
 export const Header = () => {
     const [userQuery, setUserQuery] = useState("");
     const [isLoading, setIsLoading] = useState(false);
@@ -21,7 +23,7 @@ export const Header = () => {
                 return
             }
 
-            await axios.post("http://localhost:8000/", {
+            await axios.post(BACKEND_URL, {
                 user_input:userQuery
             })
 
@@ -36,13 +38,13 @@ export const Header = () => {
     }
     return (
         <>
-        <section className="bg-white dark:bg-gray-900">
-            <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 lg:py-16 lg:grid-cols-12">
+        <section className="bg-white">
+            <div className="flex flex-col justify-center items-center gap-8 max-w-screen-xl px-4 py-8 mx-auto lg:grid lg:gap-8 lg:py-16 lg:grid-cols-12">
                 <div className="mr-auto place-self-center lg:col-span-6">
-                    <h1 className="max-w-2xl mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl">JotBot</h1>
-                    <h2 className="max-w-xl mb-4 text-2xl font-extrabold tracking-tight leading-none md:text-3xl xl:text-4xl">AI-powered note assistant</h2>
-                    <p className="max-w-2xl mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">Effortlessly create, retrieve, and manage your notes with natural language commands, simplifying organization and boosting productivity in just a few words.</p>
-                    <div className="relative">
+                    <h1 className="text-center w-full mb-4 text-4xl font-extrabold tracking-tight leading-none md:text-5xl xl:text-6xl">JotBot</h1>
+                    <h2 className="w-full text-center mb-4 text-2xl font-extrabold tracking-tight leading-none md:text-3xl xl:text-4xl">AI-powered note assistant</h2>
+                    <p className="w-full text-center lg:text-left px-4 mb-6 font-light text-gray-500 lg:mb-8 md:text-lg lg:text-xl dark:text-gray-400">Effortlessly create, retrieve, and manage your notes with natural language commands, simplifying organization and boosting productivity in just a few words.</p>
+                    <div className="relative px-4">
                         <textarea onChange={(e) => {setUserQuery(e.target.value)}} rows="4" className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Example: Create a note about my flight to New York next week.">
                         </textarea>
                         <div role="status" className={`absolute ${!isLoading ? "hidden" : ""} -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2`}>
@@ -50,16 +52,18 @@ export const Header = () => {
                             <span className="sr-only">Loading...</span>
                         </div>
                     </div>
-                    <button onClick={handleUserQuery} className="mt-4 inline-flex items-center justify-center px-5 py-3 mr-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300">
+                    <div className="flex flex-row justify-center items-center gap-4">
+                    <button onClick={handleUserQuery} className="mt-4 inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300">
                         Get Started
                         <svg className="w-5 h-5 ml-2 -mr-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
                     </button>
 
-                    <button onClick={notify} className="inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100">
+                    <button onClick={notify} className="mt-4 inline-flex items-center justify-center px-5 py-3 text-base font-medium text-center text-gray-900 border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-gray-100">
                         Refresh Table
-                    </button> 
+                    </button>
+                    </div> 
                 </div>
-                <div className="hidden lg:mt-0 lg:col-span-6 lg:flex">
+                <div className="lg:mt-0 lg:col-span-6">
                    <Table/>
                 </div>  
             </div>

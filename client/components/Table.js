@@ -3,12 +3,14 @@
 import axios from "axios";
 import { useEffect, useState } from "react"
 
+const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL
+
 export const Table = () => {
     const [notes, setNotes] = useState([]);
     useEffect(() => {
         const getNotes = async () => {
             try {
-                const response = await axios.get("http://localhost:8000/");
+                const response = await axios.get(BACKEND_URL);
                 setNotes(response.data.response);
             } catch(err) {
                 console.log(err);
