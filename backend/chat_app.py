@@ -133,6 +133,10 @@ origins = [
     "https://agentbots.vercel.app"
 ]
 
+# origins = [
+#     "http://localhost:3000"
+# ]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -145,9 +149,9 @@ app.add_middleware(
 async def use_agent(user_query: UserInput):
     response = await ask(user_query.user_input)
     if response:
-        return {"Response": response}
+        return {"response": response}
     else:
-        return {"Error": "Check intent and action agent."}
+        raise Exception("Check intent and action agent.")
 
 @app.get('/')
 async def get_data():
@@ -156,7 +160,7 @@ async def get_data():
     if response:
         return {"response": response}
     else:
-        return {"Error": "Check DB connection."}
+        raise Exception("Check intent and action agent.")
 
 # To run, execute python chat_app.py or comment the below lines of code and run uvicorn chat_app:app --host 0.0.0.0 --port 8000
 if __name__ == "__main__":

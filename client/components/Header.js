@@ -34,6 +34,7 @@ export const Header = () => {
         } catch(err) {
             console.log(err)
             toast.error("Something went wrong.")
+            setIsLoading(false);
         }
     }
     return (
